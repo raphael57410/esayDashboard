@@ -1,9 +1,10 @@
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 import { Button } from "@tremor/react";
 import "./App.css";
 import { useMainUrlStore } from "./Store/store";
 import Home from "./components/Home/Home";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
@@ -15,6 +16,11 @@ function App() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
     setGreetMsg(await invoke("greet", { name }));
   }
+
+  useEffect(() => {
+    console.log('je rebuild');
+
+  }, [mainUrl])
 
   return (
     <div className="container">
@@ -33,16 +39,16 @@ function App() {
               onChange={(e) => setName(e.currentTarget.value)}
               placeholder="api url..."
             />
-            <Button type="button" size="xs" onClick={() => setMainUrl(name)}>Envoyer</Button>
+            <Button type="button" size="xs" onClick={() => {
+              setMainUrl(name)
+            }}>Envoyer</Button>
           </form>
           <p>{greetMsg}</p>
         </div>
       </div>}
 
       {mainUrl &&
-        <Suspense fallback={'LOADING....'}>
-          <Home />
-        </Suspense>
+        <Home />
       }
 
     </div>

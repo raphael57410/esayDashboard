@@ -24,7 +24,7 @@ const GenericTable = ({ collectionName }: Props) => {
                 <TableRow>
 
                     {
-                        Object.keys(data[collectionName][0]).map(key => <TableCell>{key}</TableCell>)
+                        Object.keys(data[collectionName][0]).map(key => <TableCell key={key}>{key}</TableCell>)
                     }
 
                 </TableRow>

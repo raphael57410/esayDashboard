@@ -7,7 +7,7 @@ export const useQueryGetAllData = (collectionName: string, mainUrl: string) => {
         queryKey: [collectionName],
         queryFn: async () => fetch(mainUrl + collectionName).then((res) => res.json()),
         cacheTime: Infinity,
-        suspense: true,
+        refetchOnWindowFocus: false
     })
 }
 
@@ -15,9 +15,9 @@ export const useQueryGetAllCollectionsName = (collectionName: string) => {
 
 
     return useQuery<any, Error>({
-        queryKey: ['all_collection'],
+        queryKey: [collectionName],
         queryFn: async () => fetch(collectionName).then((res) => res.json()),
         cacheTime: Infinity,
-        suspense: true,
+        refetchOnWindowFocus: false
     })
 }
