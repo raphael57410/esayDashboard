@@ -8,6 +8,8 @@ At the start of the application enter the base url of your api your api must ret
 
 `db.db.listCollections().toArray();`
 
+    - http://localhost:3001/api/ 
+
 ![App Screenshot](./public//screenShot/home.png)
 
 ## When you've entered your api url
