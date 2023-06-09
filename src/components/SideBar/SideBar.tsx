@@ -1,11 +1,14 @@
-import { List, ListItem } from "@tremor/react"
+import { Button, List, ListItem } from "@tremor/react"
 import { useMainUrlStore } from "../../Store/store"
+import { useAddRessourceStore } from "../../Store/addRessourceStore"
 
 type Props = {
     collectionsName: { name: string, info: { uuid: string } }[]
 }
-const SideBar = ({ collectionsName }: Props) => {
+export const SideBar = ({ collectionsName }: Props) => {
     const [setCollectionName] = useMainUrlStore(state => [state.setCollectionName])
+    const [setIsOPen] = useAddRessourceStore(state => [state.setIsOPen])
+
 
 
     return (
@@ -14,8 +17,9 @@ const SideBar = ({ collectionsName }: Props) => {
             <List>
                 {collectionsName.map(collectionsName => <ListItem onClick={() => setCollectionName(collectionsName.name)} className="hover:cursor-pointer text-2xl hover:text-white" key={collectionsName.info.uuid}>{collectionsName.name}</ListItem>)}
             </List>
+            <Button onClick={() => setIsOPen()}>Ajouter une ressource</Button>
         </div>
     )
 }
 
-export default SideBar
+

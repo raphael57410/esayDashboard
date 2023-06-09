@@ -2,13 +2,16 @@ import { useMainUrlStore } from '../../Store/store'
 import { Button, Title } from '@tremor/react'
 import { useQueryGetAllCollectionsName } from '../../service/getAllData';
 import GenericTable from '../GenericTable/GenericTable';
-import SideBar from '../SideBar/SideBar';
 import Loader from '../Loader/Loader';
 import { Suspense } from 'react';
 import LogoutIcon from '@heroicons/react/outline/LogoutIcon';
+import { SideBar } from '../SideBar/SideBar';
+import { AddRessource } from '../AddRessource/AddRessource';
+import { useAddRessourceStore } from '../../Store/addRessourceStore';
 
 const Home = () => {
-    const [mainUrl, setMainUrl, collectionName] = useMainUrlStore(state => [state.mainUrl, state.setMainUrl, state.collectionName])
+    const [mainUrl, setMainUrl, collectionName] = useMainUrlStore(state => [state.mainUrl, state.setMainUrl, state.collectionName]);
+    const [isOpen, setIsOPen] = useAddRessourceStore(state => [state.isOpen, state.setIsOPen]);
     const { data, isLoading, error } = useQueryGetAllCollectionsName(mainUrl);
 
     if (!data) return <Loader />
@@ -17,12 +20,11 @@ const Home = () => {
         useMainUrlStore.persist.clearStorage()
         setMainUrl("")
     }} >Reset main url</Button>
-    console.log(data);
 
 
     return (
         <>
-            <Suspense fallback={'loading...'}>
+            {!isOpen && <Suspense fallback={'loading...'}>
                 <div className='flex w-full'>
                     <SideBar collectionsName={data} />
                     {collectionName &&
@@ -41,7 +43,8 @@ const Home = () => {
                         </div>
                     }
                 </div>
-            </Suspense>
+            </Suspense>}
+            {isOpen && <AddRessource />}
         </>
     )
 }

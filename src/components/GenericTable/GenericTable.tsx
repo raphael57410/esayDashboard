@@ -17,14 +17,13 @@ const GenericTable = ({ collectionName }: Props) => {
 
     if (!data) return <div>...Loading</div>
 
-
     return (
         <Table className="mt-5">
             <TableHead>
                 <TableRow>
 
                     {
-                        Object.keys(data[collectionName][0]).map(key => <TableCell key={key}>{key}</TableCell>)
+                        data[collectionName][0] && Object.keys(data[collectionName][0]).map(key => <TableCell key={key}>{key}</TableCell>)
                     }
 
                 </TableRow>
