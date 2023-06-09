@@ -34,8 +34,8 @@ const Home = () => {
                             <div className='flex items-center justify-center relative'>
                                 <div className='flex relative'>
                                     <Title className='text-4xl font-bold'>{collectionName}</Title>
-                                    <Icon size="md" icon={DotsCircleHorizontalIcon} onClick={() => setIsHoverDot(true)} />
-                                    {isHoverDot && <Card className="absolute top-14">
+                                    <Icon className='hover:cursor-pointer' size="md" icon={DotsCircleHorizontalIcon} onClick={() => setIsHoverDot(!isHoverDot)} />
+                                    {isHoverDot && <Card className=" flex flex-col items-center absolute top-14 gap-5">
                                         <Button icon={TrashIcon} color='red' variant='light'>Supprimer</Button>
                                         <Button variant='light' onClick={() => setIsHoverDot(false)}>Fermer</Button>
                                     </Card>}
