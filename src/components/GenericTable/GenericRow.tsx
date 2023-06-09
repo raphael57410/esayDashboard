@@ -16,9 +16,9 @@ const GenericRow = ({ item }: Props) => {
     const [mainUrl, collectionName] = useMainUrlStore(state => [state.mainUrl, state.collectionName])
     const { refetch } = useQueryGetAllData(collectionName, mainUrl);
     return (
-        <TableRow key={item._id}>
+        <TableRow>
             {
-                Object.values(item).map((el) => <TableCell className="text-white">{el}</TableCell>)
+                Object.values(item).map((el, i) => <TableCell key={i} className="text-white">{el}</TableCell>)
             }
             <TableCell className="flex justify-center items-center">
                 <Badge className="hover:cursor-pointer" color="red" icon={TrashIcon} onClick={() => {

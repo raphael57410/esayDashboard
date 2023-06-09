@@ -3,13 +3,17 @@ import { useAddRessourceStore } from "../../Store/addRessourceStore"
 import { useEffect, useState } from "react"
 import { Controller, FormProvider, useFieldArray, useForm } from "react-hook-form"
 import { ResourceForm } from "../Form/ResourceForm"
+import { useQueryGetAllCollectionsName } from "../../service/getAllData"
+import { useMainUrlStore } from "../../Store/store"
 
 type Props = {
 
 }
 export const AddRessource = ({ }: Props) => {
     const [isNameChoice, setisNameChoice] = useState<boolean>();
+    const [mainUrl] = useMainUrlStore(state => [state.mainUrl])
     const [setIsOPen] = useAddRessourceStore(state => [state.setIsOPen]);
+    const { refetch } = useQueryGetAllCollectionsName(mainUrl);
     const methods = useForm();
     const control = methods.control;
 
@@ -25,6 +29,10 @@ export const AddRessource = ({ }: Props) => {
                 "Content-Type": "application/json",
             }, body: JSON.stringify(data)
         })
+
+        if (res.status === 201) {
+            refetch()
+        }
         console.log(res);
 
     }
